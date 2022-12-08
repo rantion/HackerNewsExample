@@ -1,0 +1,1 @@
+export const newsItemsLoading = () => ({type: 'newsItems/newsItemsLoading'})
