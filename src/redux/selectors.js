@@ -1,1 +1,0 @@
-export const getNewsItems = (state) => state.newsItems.items;
