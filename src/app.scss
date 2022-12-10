@@ -5,6 +5,11 @@
   flex-direction: row;
 }
 
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+
 @mixin largeFont {
   font-family: 'Ubuntu Mono', monospace;
   font-style: normal;
@@ -83,8 +88,7 @@ a {
 }
 
 .footer {
-  display: flex;
-  flex-direction: column;
+  @include column;
   border-top: 4px solid var(--highlight-color);
   height: 100px;
   margin: 0 90px;
@@ -130,6 +134,7 @@ a {
 .listView {
   text-align: left;
   padding-bottom: 8px;
+  @include column;
 
   .showMoreButton {
     @include mediumFont;
@@ -138,6 +143,7 @@ a {
     padding: 8px 14px;
     border-style: none;
     margin-left: $offsetSize;
+    width: fit-content;
   }
 }
 
@@ -146,7 +152,8 @@ a {
 }
 
 .spinnerSmall {
-  height: 20px;
+  height: 60px;
+  width: fit-content;
 }
 
 .articleListContainer {

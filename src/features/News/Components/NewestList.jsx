@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {getFilteredNewsItems, NewsFilters } from "../newsSlice";
 import ArticleListView from "./ArticleListView";
 import {ARTICLE_LIMIT} from "../../../App";

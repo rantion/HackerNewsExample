@@ -16,13 +16,13 @@ const ArticleListView = (props) => {
     }
 
     const showMoreClicked = () => {
-        setShowMore(true);
         setArticleLimit(newsItems.length)
+        setShowMore(true);
     }
 
     return <div className={'listView'}>
         {newsItems.length > 0 && newsItems.slice(0,articleLimit).map((item, index) => (
-            <ArticleListItem item={item} key={index} articleNumber={index+1}/>
+            <ArticleListItem item={item} key={item.id} articleNumber={index+1}/>
         ))
         }
         {(newsItems.length > articleLimit && !showMore) && <button className={'showMoreButton'} onClick={() => showMoreClicked()}>show more</button>}

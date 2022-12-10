@@ -8,6 +8,7 @@ export const NewsActions = {
     itemsLoaded: 'newsItems/newsItemsLoaded',
     saveToggled: 'newsItems/saveToggled',
     filterChange: 'newsItems/filterChange',
+    deleteItem: 'newsItems/deleteItem',
 }
 
 const initialState = {
@@ -51,6 +52,12 @@ export default function newsItemsReducer(state = initialState, action) {
                 filter: action.payload,
             }
         }
+        case NewsActions.deleteItem: {
+            return {
+                ...state,
+                items: state.items.filter(item => item.id !== action.payload)
+            }
+        }
         default:
             return state;
     }
@@ -65,6 +72,7 @@ export const newsItemsLoaded = (items) => ({
 });
 export const newsItemToggled = (itemId) => ({type: NewsActions.saveToggled, payload: itemId})
 export const newsItemFilterChange = (status) => ({type: NewsActions.filterChange, payload: status})
+export const removeNewsItem = (itemId) => ({type: NewsActions.deleteItem, payload: itemId})
 
 
 // selectors
