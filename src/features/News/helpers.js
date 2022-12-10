@@ -31,8 +31,14 @@ const timeSince = (date) => {
     return Math.floor(seconds) + " seconds";
 }
 
-export const getBaseUrl = (data) => {
+export const getBaseUrlHostname = (data) => {
     const a = document.createElement('a');
     a.href = data;
     return a.hostname;
+}
+
+export const getBaseUrl = (data) => {
+    const a = document.createElement('a');
+    a.href = data;
+    return a.origin;
 }

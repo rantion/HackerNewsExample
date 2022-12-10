@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/revelio-frontend.iml" filepath="$PROJECT_DIR$/.idea/revelio-frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HackerNewsExample.iml" filepath="$PROJECT_DIR$/.idea/HackerNewsExample.iml" />
     </modules>
   </component>
 </project>

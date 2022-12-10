@@ -1,8 +1,13 @@
-import {createSelector} from "@reduxjs/toolkit";
-
-const NewsFilters = {
+export const NewsFilters = {
     Newest: 'newest',
     Starred: 'starred',
+}
+
+export const NewsActions = {
+    itemsLoading : 'newsItems/newsItemsLoading',
+    itemsLoaded: 'newsItems/newsItemsLoaded',
+    saveToggled: 'newsItems/saveToggled',
+    filterChange: 'newsItems/filterChange',
 }
 
 const initialState = {
@@ -13,21 +18,20 @@ const initialState = {
 
 export default function newsItemsReducer(state = initialState, action) {
     switch (action.type) {
-        case 'newsItems/newsItemsLoading': {
+        case NewsActions.itemsLoading: {
             return {
                 ...state,
                 status: 'loading',
             }
         }
-        case 'newsItems/newsItemsLoaded': {
+        case NewsActions.itemsLoaded: {
             return {
                 ...state,
                 status: 'idle',
                 items: action.payload,
             }
         }
-        case 'newsItems/saveToggled': {
-            console.log("saveToggled", action.payload);
+        case NewsActions.saveToggled: {
             return {
                 ...state,
                 items: state.items.map((item) => {
@@ -41,10 +45,10 @@ export default function newsItemsReducer(state = initialState, action) {
                 })
             }
         }
-        case 'newsItems/filterChange': {
+        case NewsActions.filterChange: {
             return {
                 ...state,
-                status: action.payload,
+                filter: action.payload,
             }
         }
         default:
@@ -54,16 +58,19 @@ export default function newsItemsReducer(state = initialState, action) {
 
 // actions
 
-export const newsItemsLoading = () => ({type: 'newsItems/newsItemsLoading'})
+export const newsItemsLoading = () => ({type: NewsActions.itemsLoading})
 export const newsItemsLoaded = (items) => ({
-    type: 'newsItems/newsItemsLoaded',
+    type: NewsActions.itemsLoaded,
     payload: items,
 });
-export const newsItemToggled = (itemId) => ({type: 'newsItems/saveToggled', payload: itemId})
-export const newsItemFilterChange = (status) => ({type: 'newsItems/filterChang', payload: status})
+export const newsItemToggled = (itemId) => ({type: NewsActions.saveToggled, payload: itemId})
+export const newsItemFilterChange = (status) => ({type: NewsActions.filterChange, payload: status})
+
+
 // selectors
 
 export const getNewsItems = (state) => state.newsItems.items;
+export const getNewsFilter = (state) => state.newsItems.filter;
 export const getFilteredNewsItems = (state, filter) => {
     const items = getNewsItems(state);
     switch(filter) {
@@ -74,8 +81,6 @@ export const getFilteredNewsItems = (state, filter) => {
             return items;
     }
 }
-
-
 
 
 // other functions/requests
