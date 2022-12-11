@@ -11,7 +11,6 @@ import {Link} from "react-router-dom";
 const Header = () => {
     const dispatch = useDispatch();
     const nightMode = useSelector( getNightModeStatus);
-    console.log("nightMode", nightMode);
 
     const modeLogo = nightMode ? <Sun/> : <Moon/>;
     const logo = nightMode ? <DarkLogo/> : <Logo/>;
