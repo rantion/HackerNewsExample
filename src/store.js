@@ -1,11 +1,13 @@
-import { applyMiddleware, createStore } from "@reduxjs/toolkit";
-import thunkMiddleware from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import rootReducer from './reducer'
+import {configureStore} from "@reduxjs/toolkit";
+import newsItemsReducer from "./features/News/newsSlice";
+import nightModeReducer from "./features/NightMode/nightModeSlice";
 
-const composedEnhancer = composeWithDevTools(
-    applyMiddleware(thunkMiddleware)
-)
+const store = configureStore({
+    reducer: {
+        newsItems: newsItemsReducer,
+        nightMode: nightModeReducer,
+    },
+    devTools: true,
 
-const store = createStore(rootReducer, composedEnhancer)
+})
 export default store

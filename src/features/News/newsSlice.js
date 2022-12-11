@@ -1,9 +1,11 @@
+import {createSelector} from "@reduxjs/toolkit";
+
 export const NewsFilters = {
     Newest: 'newest',
     Starred: 'starred',
 }
 
-export const NewsActions = {
+const NewsActions = {
     itemsLoading : 'newsItems/newsItemsLoading',
     itemsLoaded: 'newsItems/newsItemsLoaded',
     saveToggled: 'newsItems/saveToggled',
@@ -65,30 +67,29 @@ export default function newsItemsReducer(state = initialState, action) {
 
 // actions
 
-export const newsItemsLoading = () => ({type: NewsActions.itemsLoading})
-export const newsItemsLoaded = (items) => ({
-    type: NewsActions.itemsLoaded,
-    payload: items,
-});
-export const newsItemToggled = (itemId) => ({type: NewsActions.saveToggled, payload: itemId})
-export const newsItemFilterChange = (status) => ({type: NewsActions.filterChange, payload: status})
-export const removeNewsItem = (itemId) => ({type: NewsActions.deleteItem, payload: itemId})
+export const newsItemsLoading = () => ({type: NewsActions.itemsLoading});
+export const newsItemsLoaded = (items) => ({type: NewsActions.itemsLoaded, payload: items});
+export const newsItemToggled = (itemId) => ({type: NewsActions.saveToggled, payload: itemId});
+export const newsItemFilterChange = (status) => ({type: NewsActions.filterChange, payload: status});
+export const removeNewsItem = (itemId) => ({type: NewsActions.deleteItem, payload: itemId});
 
 
 // selectors
 
 export const getNewsItems = (state) => state.newsItems.items;
 export const getNewsFilter = (state) => state.newsItems.filter;
-export const getFilteredNewsItems = (state, filter) => {
-    const items = getNewsItems(state);
-    switch(filter) {
-        case NewsFilters.Starred:
-            return items.filter(item => item.saved);
-        case NewsFilters.Newest:
-        default:
-            return items;
-    }
-}
+export const getFilteredNewsItems = createSelector(
+    getNewsItems,
+    getNewsFilter,
+    (items, filter) => {
+        switch (filter) {
+            case NewsFilters.Starred:
+                return items.filter(item => item.saved);
+            case NewsFilters.Newest:
+            default:
+                return items;
+        }
+    },);
 
 
 // other functions/requests
@@ -102,13 +103,5 @@ export const fetchNewsTest = () => async (dispatch) => {
                 id: item,
                 saved: false,
             }))))
-        })
-}
-
-export const fetchNewsItemById = (id)  => async (dispatch) => {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)
-        .then(response => response.json())
-        .then(data => {
-            return data;
         })
 }

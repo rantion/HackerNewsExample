@@ -1,12 +1,16 @@
+const NightModeActions = {
+    toggleNightMode: 'nightMode/toggle'
+}
+
 const initialState = {
     nightModeStatus: false
 }
 
 export default function nightModeReducer(state = initialState, action) {
     switch (action.type) {
-        case 'nightmode/toggle': {
+        case NightModeActions.toggleNightmode: {
             return {
-                ... state,
+                ...state,
                 nightModeStatus: !state.nightModeStatus,
             }
         }
@@ -15,6 +19,6 @@ export default function nightModeReducer(state = initialState, action) {
     }
 }
 
-export const nightModeToggled = () => ({type: 'nightmode/toggle'})
+export const nightModeToggled = () => ({type: NightModeActions.toggleNightMode})
 
 export const getNightModeStatus = (state) => state.nightMode.nightModeStatus;

@@ -1,6 +1,6 @@
 import {Filled} from "../../../images/star_filled";
 import {Empty} from "../../../images/star_empty";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { newsItemToggled, removeNewsItem} from "../newsSlice";
 import {formatTime, getBaseUrl, getBaseUrlHostname} from "../helpers";
 import {useDispatch, useSelector} from "react-redux";
@@ -24,10 +24,8 @@ const ArticleListItem = (props) => {
     }, []);
 
     useEffect(() => {
-        if(!isEmpty(newsItem)){
-            if(!newsItem.url){
-                dispatch(removeNewsItem(props.item.id))
-            }
+        if(!isEmpty(newsItem) && !newsItem.url){
+            dispatch(removeNewsItem(props.item.id))
         }
     }, [newsItem]);
 
@@ -43,18 +41,18 @@ const ArticleListItem = (props) => {
         <div className={'saveStatus'} onClick={() => toggleSaved()}><Filled/><span>saved</span></div> :
         <div className={'saveStatus'} onClick={() => toggleSaved()}><Empty color={nightMode ? 'rgba(255, 255, 255, 0.5)' : 'black'}/><span>save</span></div>;
 
-    const baseUrl = getBaseUrlHostname(newsItem.url ?? "");
+    const baseUrl = getBaseUrlHostname(newsItem ? newsItem.url : ""); // so it doesn't throw an error before it deletes it
     const articleNum = `${articleNumber}.`
 
     return (<>
         {isEmpty(newsItem) ?
             <img className={'spinnerSmall'} src={spinner} alt={"loading..."}/> :
             <div className={'articleListContainer'}>
-            <div className={'articleNumber'}>{articleNum}</div>
-            <div className={'articleListTitle'}><a className={'articleTitle'} href={newsItem.url} target="_blank">{newsItem.title}</a><a className={'baseUrl'} href={getBaseUrl(newsItem.url)} target="_blank">({baseUrl})</a></div>
-            <div className={'articleDetails'}>
-                <a className={'articleMeta'} href={newsItem.url} target="_blank">{newsItem.points} by {newsItem.by} {formatTime(newsItem.time)} ago | {newsItem.descendants} comments |</a> {savedStatus}
-            </div>
-    </div>}</>);
+                <div className={'articleNumber'}>{articleNum}</div>
+                <div className={'articleListTitle'}><a className={'articleTitle'} href={newsItem.url} target="_blank"  rel="noreferrer" >{newsItem.title}</a><a className={'baseUrl'} href={getBaseUrl(newsItem.url)} target="_blank"  rel="noreferrer">({baseUrl})</a></div>
+                <div className={'articleDetails'}>
+                    <a className={'articleMeta'} href={newsItem.url} target="_blank"  rel="noreferrer" >{newsItem.points} by {newsItem.by} {formatTime(newsItem.time)} ago | {newsItem.descendants} comments |</a> {savedStatus}
+                </div>
+            </div>}</>);
 }
-export default ArticleListItem;
+export default React.memo(ArticleListItem);

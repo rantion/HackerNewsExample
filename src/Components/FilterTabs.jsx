@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {getNewsFilter, NewsFilters as NewsFilter} from "./News/newsSlice";
+import {getNewsFilter, NewsFilters as NewsFilter} from "../features/News/newsSlice";
 import classNames from "classnames";
 import {Link} from "react-router-dom";
 

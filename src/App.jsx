@@ -4,13 +4,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {getNightModeStatus} from "./features/NightMode/nightModeSlice";
 
 import classNames from "classnames";
-import Header from "./features/Header";
+import Header from "./Components/Header";
 import StarredList from "./features/News/Components/StarredList";
 import NewestList from "./features/News/Components/NewestList";
 import {useEffect} from "react";
 import {NewsFilters, newsItemFilterChange} from "./features/News/newsSlice";
-import Error from "./features/Error";
-import Footer from "./features/Footer";
+import Error from "./Components/Error";
+import Footer from "./Components/Footer";
 
 export const ARTICLE_LIMIT = 12;
 

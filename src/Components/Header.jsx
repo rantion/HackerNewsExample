@@ -1,7 +1,7 @@
 import FilterTabs from "./FilterTabs";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getNightModeStatus, nightModeToggled} from "./NightMode/nightModeSlice";
+import {getNightModeStatus, nightModeToggled} from "../features/NightMode/nightModeSlice";
 import {Sun} from "../images/sun";
 import {Moon} from "../images/moon";
 import {DarkLogo} from "../images/darkLogo";
