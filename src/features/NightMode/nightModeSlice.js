@@ -8,7 +8,7 @@ const initialState = {
 
 export default function nightModeReducer(state = initialState, action) {
     switch (action.type) {
-        case NightModeActions.toggleNightmode: {
+        case NightModeActions.toggleNightMode: {
             return {
                 ...state,
                 nightModeStatus: !state.nightModeStatus,
